@@ -1,0 +1,9 @@
+{
+	"modid": "VelkhanaMod",
+	"name": "VelkhanaMod",
+	"author_list": ["Incubator4"],
+	"description": "Test",
+	"version": "1.0",
+	"mts_version": "3.6.3",
+	"dependencies": ["basemod"]
+}
