@@ -58,7 +58,12 @@ class Velkhana(name: String?) : CustomPlayer(name, VelkhanaEnum.VELKHANA, null, 
     }
 
     fun onEnergyChange(energyCount:Int) {
-        ChangeEnergyAction(energyCount)
+
+        ChangeEnergyAction(when(energyCount) {
+            in Int.MIN_VALUE..0 -> 0
+            in 50..Int.MAX_VALUE -> 50
+            else -> energyCount
+        })
     }
 
     override fun getSlashAttackColor(): Color {
