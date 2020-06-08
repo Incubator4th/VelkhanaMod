@@ -1,0 +1,4 @@
+package Card
+
+interface AbstractIceCard {
+}

@@ -1,5 +1,10 @@
 package Character
 
+import Action.ChangeEnergyAction
+import Stance.IceBreathLow
+import Stance.IceBreathMedium
+import Stance.IceBreathNormal
+import Stance.IceBreathTop
 import basemod.abstracts.CustomPlayer
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
@@ -9,6 +14,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.EnergyManager
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.screens.CharSelectInfo
+import com.megacrit.cardcrawl.stances.AbstractStance
 import com.megacrit.cardcrawl.unlock.UnlockTracker
 import java.util.ArrayList
 
@@ -26,12 +32,12 @@ class Velkhana(name: String?) : CustomPlayer(name, VelkhanaEnum.VELKHANA, null, 
         const val MAX_HP = 75
         const val STARTING_GOLD = 99
         const val HAND_SIZE = 5
-
     }
-
+    var energyCount = 0
     init {
         this.dialogX = (this.drawX + 0.0f * Settings.scale)
         this.dialogY = (this.drawY + 0.0f * Settings.scale)
+        this.stance = IceBreathNormal()
         initializeClass(null,
                 MY_CHARACTER_SHOULDER_2, MY_CHARACTER_SHOULDER_1, MY_CHARACTER_CORPSE, loadout,
                 20.0f, -10.0f, 220.0f, 290.0f, EnergyManager(ENERGY_PER_TURN))
@@ -51,8 +57,8 @@ class Velkhana(name: String?) : CustomPlayer(name, VelkhanaEnum.VELKHANA, null, 
                 this as AbstractPlayer, startingRelics,startingDeck, false)
     }
 
-    fun onEnergySlotChange(energyCount:Int) {
-
+    fun onEnergyChange(energyCount:Int) {
+        ChangeEnergyAction(energyCount)
     }
 
     override fun getSlashAttackColor(): Color {
