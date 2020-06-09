@@ -1,11 +1,12 @@
 package Character
 
 import Action.ChangeEnergyAction
-import Stance.IceBreathLow
-import Stance.IceBreathMedium
+import Patch.AbstractCardEnum
+import Patch.VelkhanaEnum
 import Stance.IceBreathNormal
-import Stance.IceBreathTop
 import basemod.abstracts.CustomPlayer
+import basemod.animations.G3DJAnimation
+import basemod.animations.SpriterAnimation
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.megacrit.cardcrawl.actions.AbstractGameAction
@@ -14,11 +15,12 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.EnergyManager
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.screens.CharSelectInfo
-import com.megacrit.cardcrawl.stances.AbstractStance
 import com.megacrit.cardcrawl.unlock.UnlockTracker
-import java.util.ArrayList
+import java.util.*
 
-class Velkhana(name: String?) : CustomPlayer(name, VelkhanaEnum.VELKHANA, null, null) {
+class Velkhana(name: String) :
+    CustomPlayer(name,VelkhanaEnum.VELKHANA,null,
+        null,"image/skeleton.atlas") {
     companion object {
         const val ENERGY_PER_TURN = 3 // how much energy you get every turn
         const val ORB_SLOTS = 0
@@ -41,6 +43,7 @@ class Velkhana(name: String?) : CustomPlayer(name, VelkhanaEnum.VELKHANA, null, 
         initializeClass(null,
                 MY_CHARACTER_SHOULDER_2, MY_CHARACTER_SHOULDER_1, MY_CHARACTER_CORPSE, loadout,
                 20.0f, -10.0f, 220.0f, 290.0f, EnergyManager(ENERGY_PER_TURN))
+
     }
 
     override fun getStartingRelics(): ArrayList<String> {
@@ -87,7 +90,8 @@ class Velkhana(name: String?) : CustomPlayer(name, VelkhanaEnum.VELKHANA, null, 
     }
 
     override fun getTitle(p0: PlayerClass?): String {
-        TODO("Not yet implemented")
+        // todo i18n
+        return "Velehana"
     }
 
     override fun getSpireHeartSlashEffect(): Array<AbstractGameAction.AttackEffect> {
@@ -95,7 +99,7 @@ class Velkhana(name: String?) : CustomPlayer(name, VelkhanaEnum.VELKHANA, null, 
     }
 
     override fun getLocalizedCharacterName(): String {
-        TODO("Not yet implemented")
+        return "Velkhana"
     }
 
     override fun getVampireText(): String {
@@ -115,7 +119,7 @@ class Velkhana(name: String?) : CustomPlayer(name, VelkhanaEnum.VELKHANA, null, 
     }
 
     override fun getCardColor(): AbstractCard.CardColor {
-        TODO("Not yet implemented")
+        return AbstractCardEnum.VELKHANA_COLOR
     }
 
     override fun getEnergyNumFont(): BitmapFont {

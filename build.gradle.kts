@@ -1,6 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import kotlin.io.println
 
 group = "com.evacipated.cardcrawl"
+var projectName = "VelkhanaMod"
+val slayTheSpireInstallDir = "${System.getenv("STS_HOME")}"
 version = "1.0-SNAPSHOT"
 
 buildscript {
@@ -14,7 +17,8 @@ buildscript {
     }
 
     dependencies {
-        classpath(kotlin("gradle-plugin", version = "1.3.31"))
+        fileTree("libs/gradle-plugin/kotlin")
+        classpath(kotlin("gradle-plugin"))
     }
 }
 
@@ -34,9 +38,11 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("reflect"))
     implementation("org.apache.logging.log4j:log4j-api:2.11.1")
     implementation("org.apache.logging.log4j:log4j-core:2.11.1")
-    implementation(fileTree(mapOf("dir" to "lib", "include" to listOf("*.jar"))))
+    compileOnly(fileTree("lib"))
+//    implementation(fileTree(mapOf("dir" to "lib", "include" to listOf("*.jar"))))
     testImplementation("junit:junit:4.13")
 }
 
@@ -51,43 +57,32 @@ sourceSets {
     }
 }
 
-//tasks.register<Jar>("jar1") {
-//    archiveName = "$modName.jar"
-//    print(sourceSets)
-//    print("aaa")
-//    from(sourceSets.main.get().output) { }
-//    dependsOn(configurations.runtimeClasspath)
-//    from({
-//        configurations.runtimeClasspath.get()
-//            .filter { it.name.endsWith("jar") }
-//            .map { zipTree(it) }
-//    })
-//    from(file("src/resources/ModTheSpire.json"))
-//}
-//
-//tasks.register<Copy>("copyJarToStsMods") {
+
+tasks.register<Jar>("buildJar") {
+    archiveName = "$projectName.jar"
+    from(sourceSets.main.get().output) {}
+    dependsOn(configurations.runtimeClasspath)
+    from({
+        configurations.runtimeClasspath.get()
+            .filter { it.name.endsWith("jar") }
+            .map { zipTree(it) }
+    })
+    println("runtime")
+    println(configurations.runtimeClasspath)
+    configurations.runtimeClasspath.get().forEach {
+        println(it.name)
+    }
+}
+
+tasks.register<Copy>("copyToMods") {
 //    dependsOn("clean")
-//    dependsOn("jar1")
-//
-//    if (slayTheSpireInstallDir == null || slayTheSpireInstallDir == "null") {
-//        throw Exception("STS_HOME is not set.")
-//    }
-//
-//    from("build/libs/$modName.jar")
-//    into("$slayTheSpireInstallDir\\mods")
-//}
-//
-//tasks.register<Copy>("copyJarToWorkshopFolder") {
-//    dependsOn("clean")
-//    dependsOn("jar1")
-//
-//    if (slayTheSpireInstallDir == null || slayTheSpireInstallDir == "null") {
-//        throw Exception("STS_HOME is not set.")
-//    }
-//
-//    from("build/libs/$modName.jar")
-//    into("$slayTheSpireInstallDir\\$modName\\content") // publish to Workshop folder
-//}
+    dependsOn("buildJar")
+    if (slayTheSpireInstallDir == "" || slayTheSpireInstallDir == "null") {
+        throw Exception("STS_HOME is not set.")
+    }
+    from("build/libs/$projectName.jar")
+    into("$slayTheSpireInstallDir\\mods")
+}
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
