@@ -12,8 +12,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.megacrit.cardcrawl.actions.AbstractGameAction
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.characters.AbstractPlayer
+import com.megacrit.cardcrawl.core.CardCrawlGame
 import com.megacrit.cardcrawl.core.EnergyManager
 import com.megacrit.cardcrawl.core.Settings
+import com.megacrit.cardcrawl.helpers.ScreenShake
 import com.megacrit.cardcrawl.screens.CharSelectInfo
 import com.megacrit.cardcrawl.unlock.UnlockTracker
 import java.util.*
@@ -82,7 +84,11 @@ class Velkhana(name: String) :
     }
 
     override fun doCharSelectScreenSelectEffect() {
-        TODO("Not yet implemented")
+        CardCrawlGame.screenShake.shake(
+            ScreenShake.ShakeIntensity.MED,
+            ScreenShake.ShakeDur.SHORT,
+            false
+        )
     }
 
     override fun getSpireHeartText(): String {

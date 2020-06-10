@@ -3,7 +3,7 @@ import kotlin.io.println
 
 group = "com.evacipated.cardcrawl"
 var projectName = "VelkhanaMod"
-val slayTheSpireInstallDir = "${System.getenv("STS_HOME")}"
+val slayTheSpireInstallDir = System.getenv("STS_HOME")
 version = "1.0-SNAPSHOT"
 
 buildscript {
@@ -80,6 +80,7 @@ tasks.register<Copy>("copyToMods") {
     if (slayTheSpireInstallDir == "" || slayTheSpireInstallDir == "null") {
         throw Exception("STS_HOME is not set.")
     }
+    println(slayTheSpireInstallDir)
     from("build/libs/$projectName.jar")
     into("$slayTheSpireInstallDir\\mods")
 }

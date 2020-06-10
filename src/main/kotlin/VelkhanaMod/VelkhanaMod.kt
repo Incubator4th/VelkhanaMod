@@ -30,7 +30,7 @@ class VelkhanaMod : EditCharactersSubscriber {
         logger.info(CardCrawlGame.playerName)
         BaseMod.addCharacter(
             Velkhana(CardCrawlGame.playerName),
-            "image/checkbox.png", "image/checkbox.png", VelkhanaEnum.VELKHANA
+            "image/button.png", "image/test.jpg", VelkhanaEnum.VELKHANA
         )
     }
 
