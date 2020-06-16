@@ -1,4 +1,4 @@
-package Stance
+package stance
 
 import com.megacrit.cardcrawl.cards.DamageInfo
 import com.megacrit.cardcrawl.stances.AbstractStance

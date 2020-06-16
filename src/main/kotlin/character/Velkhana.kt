@@ -1,12 +1,10 @@
-package Character
+package character
 
-import Action.ChangeEnergyAction
-import Patch.AbstractCardEnum
-import Patch.VelkhanaEnum
-import Stance.IceBreathNormal
+import action.ChangeEnergyAction
+import patch.AbstractCardEnum
+import patch.VelkhanaEnum
+import stance.IceBreathNormal
 import basemod.abstracts.CustomPlayer
-import basemod.animations.G3DJAnimation
-import basemod.animations.SpriterAnimation
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.megacrit.cardcrawl.actions.AbstractGameAction

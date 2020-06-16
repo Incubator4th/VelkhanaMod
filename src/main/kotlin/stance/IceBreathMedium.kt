@@ -1,14 +1,14 @@
-package Stance
+package stance
 
 import com.megacrit.cardcrawl.cards.DamageInfo
 import com.megacrit.cardcrawl.stances.AbstractStance
 
-class IceBreathNormal:AbstractStance() {
+class IceBreathMedium:AbstractStance() {
     override fun updateDescription() {
         TODO("Not yet implemented")
     }
 
     override fun atDamageGive(damage: Float, type: DamageInfo.DamageType?): Float {
-        return super.atDamageGive(damage, type)
+        return super.atDamageGive(damage, type) * 1.2f
     }
 }

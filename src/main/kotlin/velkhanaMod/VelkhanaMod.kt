@@ -1,15 +1,13 @@
-package VelkhanaMod
+package velkhanaMod
 
-import Character.Velkhana
-import Patch.AbstractCardEnum
-import Patch.VelkhanaEnum
+import character.Velkhana
+import patch.AbstractCardEnum
+import patch.VelkhanaEnum
 import basemod.BaseMod
 import basemod.interfaces.EditCharactersSubscriber
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.megacrit.cardcrawl.core.CardCrawlGame
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.helpers.CardHelper
-import com.megacrit.cardcrawl.helpers.CardLibrary
 import org.apache.logging.log4j.LogManager
 
 @SpireInitializer

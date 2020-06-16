@@ -1,12 +1,9 @@
-package Power
+package power
 
-import Card.AbstractIceCard
-import Character.Velkhana
+import card.AbstractIceCard
+import character.Velkhana
 import com.megacrit.cardcrawl.cards.AbstractCard
-import com.megacrit.cardcrawl.cards.DamageInfo
-import com.megacrit.cardcrawl.core.AbstractCreature
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
-import com.megacrit.cardcrawl.monsters.AbstractMonster
 import com.megacrit.cardcrawl.powers.AbstractPower
 
 class EnergySlot : AbstractEnergyPower, AbstractPower() {

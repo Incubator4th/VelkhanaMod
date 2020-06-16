@@ -1,12 +1,12 @@
-package Action
+package action
 
-import Character.Velkhana
-import Power.AbstractEnergyPower
-import Relic.AbstractEnergyRelic
-import Stance.IceBreathLow
-import Stance.IceBreathMedium
-import Stance.IceBreathNormal
-import Stance.IceBreathTop
+import character.Velkhana
+import power.AbstractEnergyPower
+import relic.AbstractEnergyRelic
+import stance.IceBreathLow
+import stance.IceBreathMedium
+import stance.IceBreathNormal
+import stance.IceBreathTop
 import com.megacrit.cardcrawl.actions.AbstractGameAction
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 
