@@ -1,14 +1,13 @@
 package character
 
 import action.ChangeEnergyAction
-import patch.AbstractCardEnum
-import patch.VelkhanaEnum
-import stance.IceBreathNormal
 import basemod.abstracts.CustomPlayer
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.megacrit.cardcrawl.actions.AbstractGameAction
 import com.megacrit.cardcrawl.cards.AbstractCard
+import com.megacrit.cardcrawl.cards.DamageInfo
+import com.megacrit.cardcrawl.cards.DamageInfo.DamageType
 import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.CardCrawlGame
 import com.megacrit.cardcrawl.core.EnergyManager
@@ -16,14 +15,18 @@ import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.ScreenShake
 import com.megacrit.cardcrawl.screens.CharSelectInfo
 import com.megacrit.cardcrawl.unlock.UnlockTracker
+import patch.AbstractCardEnum
+import patch.VelkhanaEnum
+import stance.IceBreathNormal
 import java.util.*
+import kotlin.properties.Delegates
 
 class Velkhana(name: String) :
     CustomPlayer(name,VelkhanaEnum.VELKHANA,null,
         null,"image/skeleton.atlas") {
     companion object {
         const val ENERGY_PER_TURN = 3 // how much energy you get every turn
-        const val ORB_SLOTS = 0
+        const val ORB_SLOTS = 5
         const val MY_CHARACTER_SHOULDER_2 = "img/char/shoulder2.png" // campfire pose
         const val MY_CHARACTER_SHOULDER_1 = "img/char/shoulder1.png" // another campfire pose
         const val MY_CHARACTER_CORPSE = "img/char/corpse.png" // dead corpse
@@ -36,10 +39,13 @@ class Velkhana(name: String) :
         const val HAND_SIZE = 5
     }
     var energyCount = 0
+    var currentIceShield by Delegates.notNull<Int>()
+
     init {
         this.dialogX = (this.drawX + 0.0f * Settings.scale)
         this.dialogY = (this.drawY + 0.0f * Settings.scale)
         this.stance = IceBreathNormal()
+        this.currentIceShield = 0
         initializeClass(null,
                 MY_CHARACTER_SHOULDER_2, MY_CHARACTER_SHOULDER_1, MY_CHARACTER_CORPSE, loadout,
                 20.0f, -10.0f, 220.0f, 290.0f, EnergyManager(ENERGY_PER_TURN))
@@ -67,6 +73,18 @@ class Velkhana(name: String) :
             in 50..Int.MAX_VALUE -> 50
             else -> energyCount
         })
+    }
+
+    override fun damage(info: DamageInfo) {
+        if (info.owner != null && info.output - this.currentIceShield > 0 ) {
+            this.currentIceShield -= info.output
+        }
+        if (info.owner != null && info.type != DamageType.THORNS && info.output - currentBlock > 0) {
+            val e = state.setAnimation(0, "Hit", false)
+            state.addAnimation(0, "Idle", true, 0.0f)
+            e.timeScale = 0.6f
+        }
+        super.damage(info)
     }
 
     override fun getSlashAttackColor(): Color {

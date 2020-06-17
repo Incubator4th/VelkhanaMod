@@ -12,6 +12,8 @@ import com.megacrit.cardcrawl.powers.VulnerablePower
 class FrostBite(owner: AbstractCreature, amount: Int) : AbstractPower() {
 
     init {
+        this.owner = owner
+        this.amount = amount
         this.type = PowerType.DEBUFF
         this.isTurnBased = false
         updateDescription()
@@ -19,7 +21,7 @@ class FrostBite(owner: AbstractCreature, amount: Int) : AbstractPower() {
 
     override fun atDamageReceive(damage: Float, damageType: DamageInfo.DamageType?): Float {
         return if (damageType == DamageType.NORMAL) {
-            return damage * (1 + 0.1f * amount)
+            return damage * (1 + 0.1f * this.amount)
         } else {
             damage
         }
@@ -30,10 +32,10 @@ class FrostBite(owner: AbstractCreature, amount: Int) : AbstractPower() {
     }
 
     companion object {
-        const val POWER_ID = "ForstBite"
+        private const val POWER_ID = "ForstBite"
         private val powerStrings: PowerStrings? = CardCrawlGame.languagePack?.getPowerStrings(POWER_ID)
         val NAME: String? = powerStrings?.NAME
-        val DESCRIPTIONS = powerStrings?.DESCRIPTIONS ?: arrayOf<String>()
+        val DESCRIPTIONS: Array<String> = powerStrings?.DESCRIPTIONS ?: arrayOf<String>()
         private const val justApplied = false
         private const val EFFECTIVENESS = 1.5f
         private const val EFFECTIVENESS_STRING = 50
